@@ -1,0 +1,94 @@
+---
+title: "Homework 3"
+author: "Matt Fry"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Preface
+## This assignment has been structured to assess your ability to work 
+## with conditional code and write a function in R. The assignment also 
+## provides you the opportunity to translate a well-known (albeit juvenile) 
+## situation into a computer program.
+
+# Premise
+## As a child, you surely played a version of the game "guess the number" -- 
+## perhaps as a way of determining who gets to go first in some other game 
+## (e.g., bat first in baseball).  In this game, one person will randomly 
+## choose an integer within some bounds (say, between 1 and 20) and the other 
+## person will attempt to guess the number. You will write a function in R 
+## to mimic this game!
+
+# Directions
+## Write a function in R called GuessTheNumber().  This function will randomly 
+## generate an integer between a lower and upper bound (inclusive).  The user 
+## will then be prompted to enter in a guess for this number.  If their guess 
+## is too high, the function will tell the user the guess was too high and 
+## ask for another guess!  When too low, it will tell the user and ask for 
+## another guess.  The game continues until the user correctly guesses 
+## the random number. 
+
+```{r}
+## #Modularization: Getting R to give the user a random number between
+##    user specified bounds -- 1:30 as NULL -- and set a seed
+GuessTheNumber <- function(lowerBound=1, upperBound=30, seed=NULL){
+  if(!is.numeric(lowerBound) || !is.numeric(upperBound)) {
+    stop("The lower and upper bounds must be numbers")
+  } else if(lowerBound >= upperBound){
+    stop("The lower bound must be less than the upper bound")
+  } else{
+  set.seed(seed)
+  randomNum <- sample(lowerBound:upperBound, size=1)
+  }
+}
+```
+
+```{r}
+## #Modularization: Allowing R to prompt the user to enter in a guess and
+##    tell the user if it is high or low -- Repeat this until the number 
+##    is successfully guessed
+GuessTheNumber <-function(lowerBound=1, upperBound=30, seed=NULL){
+   if(!is.numeric(lowerBound) || !is.numeric(upperBound)) {
+    stop("The lower and upper bounds must be numbers")
+  } else if(lowerBound >= upperBound){
+    stop("The lower bound must be less than the upper bound")
+    ## Error checking portion, makes sure the inputs are numbers and the
+    ##  lowerBound is less than the upperBound, returns meaningful error
+    ##  message when prompted
+  } else{
+  set.seed(seed)
+  RandomNum <- sample(lowerBound:upperBound, size=1)
+  NumOfGuesses <- 0
+  NewNumber <- c()
+  Guess <- as.integer(readline("Guess the Number Within the Bounds: "))
+  NewNumber <- c(NewNumber, Guess)
+  NumOfGuesses <- NumOfGuesses + 1
+  while(Guess != RandomNum) {
+    if(Guess < RandomNum){
+      Guess <- as.integer(readline("Guess is TOO LOW, try again: "))
+    } else{
+      Guess <- as.integer(readline("Guess is TOO HIGH, try again: "))
+    }
+    NumOfGuesses <- NumOfGuesses + 1
+    NewNumber <- c(NewNumber, Guess)
+    RandomNumber <- c("ANSWER:", RandomNum)
+    NumGuesses <- c("Total Guesses:", NumOfGuesses)
+    Guesses <- c("Guesses:", NewNumber)
+  }
+  } 
+  list(NumGuesses, RandomNumber, Guesses) ## This is what I want for the final
+                                          ##  output so it goes b4 the last bracket
+}
+```
+
+```{r}
+## Making sure my program actually works:
+## Had to add another line (line 68) to allow for the original guess to appear
+##  in the Final list of guesses
+GuessTheNumber()
+```
+
