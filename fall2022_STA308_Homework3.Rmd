@@ -9,20 +9,6 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# Preface
-## This assignment has been structured to assess your ability to work 
-## with conditional code and write a function in R. The assignment also 
-## provides you the opportunity to translate a well-known (albeit juvenile) 
-## situation into a computer program.
-
-# Premise
-## As a child, you surely played a version of the game "guess the number" -- 
-## perhaps as a way of determining who gets to go first in some other game 
-## (e.g., bat first in baseball).  In this game, one person will randomly 
-## choose an integer within some bounds (say, between 1 and 20) and the other 
-## person will attempt to guess the number. You will write a function in R 
-## to mimic this game!
-
 # Directions
 ## Write a function in R called GuessTheNumber().  This function will randomly 
 ## generate an integer between a lower and upper bound (inclusive).  The user 
